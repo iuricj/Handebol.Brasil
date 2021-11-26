@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/quizGame.css">
+    <title>QuizGame</title>
+</head>
+
+<body>
+    <div id="header" class="header">
+
+        <div class="container">
+            <img src="./imagens/logo.png" alt="logoCBHB">
+            <ul>
+                <li><a href="home.html">Inicio</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- bloco de inicio do jogo -->
+    <div class="container-inicio" id="divInicio">
+        <p>Mostre que você está pronto para ser um ídolo </p>
+        <button onclick="inicioJogo()">COMEÇAR</button>
+    </div>
+
+    <!--    Bloco que contém todas questões do jogo      -->
+     <div class="box" id="containerGeral" style="display: none;"> 
+        <div class="container1-mid" id="containerQuestao1" style="display: none;">
+            <h1> Questão 1 </h1>
+            <br>
+            <p> Em que ano o handebol chegou no Brasil?</p>
+            <br>
+            <select id="selectPrimeiraQuestao">
+                <option value="">selecione</option>
+                <option value="1900">1900</option>
+                <option value="1930">1930</option>
+                <option value="1960">1960</option>
+            </select>
+            <br>
+            <button onclick="confirmarResposta()">Confirmar</button>
+        </div>
+
+        <div class="container1-mid" id="containerQuestao2" style="display: none;">
+            <h1> Questão 2 </h1>
+            <br>
+            <p> Qual foi o primeiro estado do Brasil que teve contato com o handebol?</p>
+            <br>
+            <select id="selectSegundaQuestao">
+                <option value="">selecione</option>
+                <option value="SP"> São Paulo</option>
+                <option value="MG"> Minas Gerais</option>
+                <option value="RJ"> Rio de Janeiro</option>
+            </select>
+            <br>
+            <button onclick="confirmarResposta2()"> Confirmar</button>
+        </div>
+
+        <div class="container1-mid" id="containerQuestao3" style="display: none;">
+            <h1>Questão 3</h1>
+            <br>
+            <p>Qual clube atua o jogador Thiagus Petros</p>
+            <br>
+            <select id="selectTerceiraQuestao">
+                <option value="">selecione</option>
+                <option value="opt_psg">Paris Saint German</option>
+                <option value="opt_varda"> Varda FC </option>
+                <option value="opt_barcelona"> Barcelona </option>
+            </select>
+            <br>
+            <button onclick="confirmarResposta3()">confirmar</button>
+        </div>
+
+        <div class="container1-mid" id="containerQuestao4" style="display: none;">
+            <br>
+            <h1> Questão 4</h1>
+            <br>
+            <p>Quantas Olímpiadas Helinho já participou?</p>
+            <select id="selectQuartaQuestao">
+                <option value="">selecione</option>
+                <option value="0">0</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+            </select>
+            <br>
+            <button onclick="confirmarResposta4()">confirmar</button>
+        </div>
+        <div class="container1-mid" id="containerQuestao5" style="display: none;">
+            <h1> Questão 5</h1>
+            <br>
+            <p>Qual dos três ídolos abaixo já foi eleito melhor do mundo?</p>
+            <br>
+            <select id="selectQuintaQuestao">
+                <option value="">selecione</option>
+                <option value="opt_thiagus">Thiagus</option>
+                <option value="opt_helinho">Helinho</option>
+                <option value="opt_duda">Duda Amorin</option>
+            </select>
+            <br>
+            <button onclick="confirmarResposta5()"> confirmar</button>
+        </div>
+    </div>
+
+    <!-- bloco do perdedor-->
+    <div class="container-perdedor" id="containerFimjogo">
+        <div id="finalizarJogo">
+            <p id="fim"></p>
+            <button id="btnFim" onclick="reiniciarJogo()">Tentar novamente</button>
+        </div>
+    </div>
+
+    <!-- bloco do vencedor-->
+    <div id="div_vencedor" style="display: none;">
+        <img src="./imagensQuiz/campeao.jpg" alt="">
+        <p>Você está pronto para ser um ídolo!!!</p>
+        <button onclick="vencedor()">Ir para o início</button>
+    </div>
+
+    <div class="footer">
+        <div class="footer-left">
+            <img src="./imagens/logo.png" alt="logoCBHB">
+
+        </div>
+        <div class="footer-right">
+            <h2>Contact</h2>
+            <div class="footer-icons">
+                <a href=""><img src="./imagens/github.png" alt=""></a>
+                <a href=""><img src="./imagens/linkedin.png" alt=""></a>
+                <a href=""><img src="./imagens/twitter.png" alt=""></a>
+            </div>
+
+            <div class="footer-links">
+                <a href=""> Sobre </a>
+                <a href=""> Blog</a>
+          
+            </div>
+
+            <div class="footer-links">
+                <a href="">Email: iuri_0405@hotmail.com</a>
+                <a href="">telefone: (11)971639119</a>
+            </div>
+            <a href="#header" class="footer-button"></a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function confirmarResposta() {
+
+        var questao1 = selectPrimeiraQuestao.value;
+    
+        if (questao1 == "1930") {
+            containerQuestao1.style.display = "none";
+            containerQuestao2.style.display = 'flex';
+        }
+
+        else {
+            containerGeral.style.display = 'none'
+            containerFimjogo.style.display = 'block';
+            fim.innerHTML = 'Questão errada';
+
+        }
+    }
+
+    function confirmarResposta2() {
+        var questao2 = selectSegundaQuestao.value;
+      
+        if (questao2 == "SP") {
+            containerQuestao2.style.display = "none";
+            containerQuestao3.style.display = "flex";
+        }
+
+        else {
+            containerGeral.style.display = 'none'
+            containerFimjogo.style.display = 'flex';
+            fim.innerHTML = 'Questão errada';
+
+        }
+    }
+
+    function confirmarResposta3() {
+        var questao3 = selectTerceiraQuestao.value;
+
+        if (questao3 == "opt_barcelona") {
+            containerQuestao3.style.display = 'none';
+            containerQuestao4.style.display = 'flex';
+        }
+
+        else {
+            containerGeral.style.display = 'none'
+            containerFimjogo.style.display = 'flex';
+            fim.innerHTML = 'Questão errada';
+
+        }
+    }
+
+    function confirmarResposta4() {
+        var questao4 = selectQuartaQuestao.value;
+
+        if (questao4 == "2") {
+            containerQuestao4.style.display = 'none';
+            containerQuestao5.style.display = 'flex';
+        }
+
+        else {
+            containerGeral.style.display = 'none'
+            containerFimjogo.style.display = 'flex';
+            fim.innerHTML = 'Questão errada';
+
+        }
+    }
+
+     var seg = 0;
+    var min = 1; 
+
+    function confirmarResposta5() {
+        var questao5 = selectQuintaQuestao.value;
+
+        if (questao5 == "opt_duda") {
+            containerGeral.style.display = "none";
+            div_vencedor.style.display = "flex";
+        }
+
+        else {
+            containerGeral.style.display = 'none';
+            containerFimjogo.style.display = 'flex';
+            fim.innerHTML = 'Você errou tente novamente ';
+
+        }
+    }
+
+    function vencedor() {
+        window.location = 'home.html';
+    }
+    function inicioJogo() {
+        divInicio.style.display = "none";
+        containerGeral.style.display = "flex";
+        containerQuestao1.style.display = "flex";
+    }
+    function reiniciarJogo() {
+        window.location.reload();
+        containerGeral.style.display = "none";
+        containerFimjogo.style.display = "none";
+        divInicio.style.display = "flex";
+    }
+    
+</script>
