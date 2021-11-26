@@ -17,23 +17,23 @@
         </div>
     </div>
     <div class="box">
-        <form id="formCadastro" class="container-2">
+        <div id="formCadastro" class="container-2">
             <h1> Registre-se</h1>
             <br>
             <img src="./imagens/user.png" alt="">
             <br><br>
-            Nick Name: <input name="nickName" placeholder="digite seu nick name" required minlength="4">
-            Email: <input name="email" placeholder="digite seu Email">
+            Nick Name: <input id="nome_input" placeholder="digite seu nick name">
+            Email: <input id="email_input" placeholder="digite seu Email">
             Idolo: <select id="lista_idolo">
-                <option value="selecionar">Selecione</option>
-                <option value="Helinho">Helinho</option>
-                <option value="Duda">Duda Amorin</option>
-                <option value="Thiagus">Thiagus</option>
+                <option value="">Selecione</option>
+                <option value="1">Helinho</option>
+                <option value="2">Duda Amorin</option>
+                <option value="3">Thiagus</option>
             </select>
-            Senha: <input name="senha" placeholder="digite sua senha" required minlength="4">
-            <button type="submit"> Registrar</button>
-            <button onclick="telaLogin()">Conectar</button>
-        </form>
+            Senha: <input id="senha_input" placeholder="digite sua senha">
+            <!-- <button type="submit"> Registrar</button> -->
+            <button onclick="cadastrar_usuario()">Conectar</button>
+        </div>
     </div>
     </div>
     <div class="footer">
@@ -63,3 +63,71 @@
 </body>
 
 </html>
+
+<script>
+
+    function limparFormulario() {
+        document.getElementById("form_cadastro").reset();
+    }
+
+    function cadastrar_usuario() {
+
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var idoloVar = lista_idolo.value;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+
+            window.alert("Preencha todos os campos para prosseguir!");
+            if (nomeVar == "") {
+                console.log('nome está em branco')
+            }
+            if (emailVar == "") {
+                console.log('email está em branco')
+            }
+            if (senhaVar == "") {
+                console.log('senha está em branco')
+            }
+            
+            // finalizarAguardar();
+            return false;
+        }
+
+        if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+            // finalizarAguardar();
+            return false;
+        }
+
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: nomeVar,
+                email: emailVar,
+                senha: senhaVar,
+                idolo: idoloVar,
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Cadastro realizado com sucesso!");
+                window.location = "login.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+</script>
