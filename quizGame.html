@@ -111,13 +111,15 @@
     </div>
 
     <!-- bloco do vencedor-->
+    
     <div id="div_vencedor" style="display: none;">
         <img src="./imagensQuiz/campeao.jpg" alt="">
         <p>Você está pronto para ser um ídolo!!!</p>
         <button onclick="vencedor()">Ir para o início</button>
-        <div id="grafico_idolo" style="display: none;">
-        </div>
+
     </div>
+    <div id="grafico_idolo" style="display: none;">
+    </div> 
 
     <div class="footer">
         <div class="footer-left">
@@ -224,7 +226,7 @@
         if (questao5 == "opt_duda") {
             containerGeral.style.display = "none";
             div_vencedor.style.display = "block";
-            // grafico_idolo.style.display = "flex";
+            grafico_idolo.style.display = "block";
         }
 
         else {
