@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/quizGame.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>QuizGame</title>
 </head>
 
@@ -13,9 +14,9 @@
 
         <div class="container">
             <img src="./imagens/logo.png" alt="logoCBHB">
-            <ul>
-                <li><a href="home.html">Inicio</a></li>
-            </ul>
+            
+                <li><a href="home.html">Sair</a></li>
+            
         </div>
     </div>
 
@@ -118,7 +119,8 @@
         <button onclick="vencedor()">Ir para o início</button>
 
     </div>
-    <div id="grafico_idolo" style="display: none;">
+    <div class="grafico" id="grafico_idolo" style="display: none;">
+        <canvas id="canvas_grafico"></canvas>
     </div> 
 
     <div class="footer">
@@ -217,8 +219,6 @@
         }
     }
 
-     var seg = 0;
-    var min = 1; 
 
     function confirmarResposta5() {
         var questao5 = selectQuintaQuestao.value;
@@ -251,5 +251,54 @@
         containerFimjogo.style.display = "none";
         divInicio.style.display = "flex";
     }
-    
+
+    fetch("ranking/jogadores").then(function (res) {
+        res.json().then(function (json) {
+            console.log(json);
+            var nomeIdolo = []
+            var votos = []
+            for (let index = 0; index < json.length; index++) {
+                nomeIdolo.push(json[index].nomeIdolo);
+                votos.push(json[index].votos);
+            }
+
+            // Inicia uma variável do tipo constante (não pode ser reatribuida)
+            const config = {
+                type: "bar", // tipo do gráfico
+                data: { // objeto que vai conter os dados do gráfico
+                    labels: nomeIdolo, // labels (rótulos) que serão identificados os nossos dados 
+                    datasets: [ // datasets (conjunto de dados)
+                        {
+                            label: "Idolos mais queridos", // irá conter o rótulo principal do nosso gráfico
+                            data: votos, // os dados referentes aqueles rótulos
+                            backgroundColor: ["#2196F3","#228B22","#FFFF00"], // cor das "bolinhas" do gráfico
+                            borderColor: "#3F51B5" // cor da "linha" do gráfico
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false
+                    /* maintainAspectRatio (manter relação de aspecto) 
+                      caso true: ele "obdece" a altura e largura que colocamos
+                      caso false: ele não "obdece" a altura e largura que colocamos e se ajusta ao componente pai
+                    */
+                }
+            }
+
+            var myChartLine = new Chart(document.getElementById("canvas_grafico"), config);
+            /* aqui obrigatoriamente tem que colocar new Chart() para criar um novo chart 
+            e passar dentro dos (parênteses) o elemento canvas que você quer mandar e 
+            separado pela virgula o que você quer mandar, no nosso caso a config que fizemos 
+            */
+
+
+
+
+
+        })
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+
 </script>
