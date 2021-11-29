@@ -20,8 +20,6 @@ insert into idolo values
 (null, 'Duda Amorin'),
 (null, 'Thiagus');
 
-select count(fkIdolo) from usuario where fkIdolo = 3
-union 
-select count(fkIdolo) from usuario where fkIdolo = 2
-union 
-select count(fkIdolo) from usuario where fkIdolo = 1;
+select * from usuario;
+
+select count(fkIdolo) as votos, i.nomeIdolo from usuario as u join idolo as i where u.fkIdolo = i.idIdolo group by u.fkIdolo;
